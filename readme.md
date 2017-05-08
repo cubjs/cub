@@ -44,9 +44,9 @@ cub.listen(8000);
 
 ## Usage
 
-- multi register
+- multi-register
 
-register function can be invoked many times to accept interceptor. All these registered interceptor will be executed one by one.
+Register function can be invoked many times to accept interceptor. All these registered interceptors will be executed one by one.
 
 ```js
 cub.register(ctx => {
@@ -60,7 +60,7 @@ cub.register(ctx => {
 
 - stop execute register
 
-If you want to stop execute the flowing interceptor, just return `false`(only `false` accept) in the current interceptor.
+If you want to stop running the flowing interceptor, just return `false`(only `false` accept) in the current interceptor.
 
 ```js
 cub.register(ctx => {
@@ -73,7 +73,7 @@ cub.register(ctx => {
 });
 ```
 
-- If you want to excute some logic after the last interceptor has been invoked like koa design, you register a a instance of BaseInterceptor.
+- If you want to execute some logic after the last interceptor has been invoked like koa design, you register a an instance of BaseInterceptor.
 
 ```js
 const BaseInterceptor = Cub.BaseInterceptor;
@@ -133,6 +133,8 @@ Running 5s test @ http://127.0.0.1:8000
 Requests/sec:  15093.17
 Transfer/sec:      2.14MB
 ```
+
+express@4 with Node.js 7.10.0:
 
 ```bash
 ➜  ~ wrk -c100 -t10  -d5  --latency  http://127.0.0.1:8000
