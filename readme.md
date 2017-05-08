@@ -96,7 +96,7 @@ todo
 
 ## Benchmark
 
-Cub :
+Cub : 7W QPS
 
 ```bash
 ➜  ~ wrk -c100 -t10  -d5  --latency  http://127.0.0.1:8000
@@ -115,7 +115,7 @@ Requests/sec:  70060.74
 Transfer/sec:      8.22MB
 ```
 
-Koa@2 with Node.js 7.10.0:
+Koa@2 with Node.js 7.10.0: 1.5W QPS
 
 ```bash
 ➜  ~ wrk -c100 -t10  -d5  --latency  http://127.0.0.1:8000
@@ -134,7 +134,7 @@ Requests/sec:  15093.17
 Transfer/sec:      2.14MB
 ```
 
-express@4 with Node.js 7.10.0:
+express@4 with Node.js 7.10.0: 1W QPS
 
 ```bash
 ➜  ~ wrk -c100 -t10  -d5  --latency  http://127.0.0.1:8000
