@@ -9,12 +9,12 @@
 
 [npm-image]: https://img.shields.io/npm/v/@cub/cub.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@cub/cub
-[travis-image]: https://img.shields.io/travis/fibjs-modules/cluster-server.svg?style=flat-square
-[travis-url]: https://travis-ci.org/fibjs-modules/cluster-server
-[codecov-image]: https://img.shields.io/codecov/c/github/fibjs-modules/cluster-server.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/fibjs-modules/cluster-server?branch=master
-[david-image]: https://img.shields.io/david/fibjs-modules/cluster-server.svg?style=flat-square
-[david-url]: https://david-dm.org/fibjs-modules/cluster-server
+[travis-image]: https://img.shields.io/travis/cubjs/cub.svg?style=flat-square
+[travis-url]: https://travis-ci.org/cubjs/cub
+[codecov-image]: https://img.shields.io/codecov/c/github/cubjs/cub.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/cubjs/cub?branch=master
+[david-image]: https://img.shields.io/david/cubjs/cub.svg?style=flat-square
+[david-url]: https://david-dm.org/cubjs/cub
 [snyk-image]: https://snyk.io/test/npm/@cub/cub/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/@cub/cub
 [download-image]: https://img.shields.io/npm/dm/@cub/cub.svg?style=flat-square
@@ -155,7 +155,7 @@ Transfer/sec:      2.24MB
 
 ## Questions & Suggestions
 
-Please open an issue [here](https://github.com/fibjs-modules/cluster-server/issues).
+Please open an issue [here](https://github.com/cubjs/cub/issues).
 
 ## License
 
