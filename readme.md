@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="cub" src="./logo/logo.png"/>
+</p>
+
 # @cub/cub
 
 [![NPM version][npm-image]][npm-url]
