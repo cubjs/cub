@@ -1,0 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+- docker pull fibjs/fibjs:ci
+- dir=`pwd` ;docker run -it -v ${dir}:/home/ci  fibjs/fibjs:ci sh /home/ci-script
