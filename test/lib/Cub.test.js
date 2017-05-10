@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const co = require('coroutine');
 const assert = require('assert');
+const detectPort = require('@fibjs/detect-port');
 
 test.setup();
 
@@ -43,12 +44,13 @@ describe("Cub", () => {
     it('should server ok', () => {
       const cub = new Cub();
       cub.register(ctx => {
-        ctx.body = 'Hello World!';
+        ctx.response.body = 'Hello World!';
       });
-      const server = new http.Server(8000, cub.servlet());
+      const port = detectPort();
+      const server = new http.Server(port, cub.servlet());
       server.asyncRun();
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'Hello World!');
       server.stop();
     });
@@ -58,13 +60,14 @@ describe("Cub", () => {
     it('should listen sync ok', () => {
       const cub = new Cub();
       cub.register(ctx => {
-        ctx.body = 'Hello World!';
+        ctx.response.body = 'Hello World!';
       });
+      const port = detectPort();
       co.start(() => {
-        cub.listen(8000);
+        cub.listen(port);
       });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'Hello World!');
       cub.server.stop();
     });
@@ -72,11 +75,12 @@ describe("Cub", () => {
     it('should listen async ok', () => {
       const cub = new Cub();
       cub.register(ctx => {
-        ctx.body = 'Hello World!';
+        ctx.response.body = 'Hello World!';
       });
-      cub.listen(8000, () => { });
+      const port = detectPort();
+      cub.listen(port, () => { });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'Hello World!');
       cub.server.stop();
     });
@@ -87,16 +91,17 @@ describe("Cub", () => {
       const cub = new Cub();
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body = 'Hello';
+          ctx.response.body = 'Hello';
         }
 
         after(ctx) {
-          ctx.body += ' World!';
+          ctx.response.body += ' World!';
         }
       });
-      cub.listen(8000, () => { });
+      const port = detectPort();
+      cub.listen(port, () => { });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'Hello World!');
       cub.server.stop();
     });
@@ -105,56 +110,57 @@ describe("Cub", () => {
       const cub = new Cub();
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body = 'a';
+          ctx.response.body = 'a';
         }
 
         after(ctx) {
-          ctx.body += 'b';
+          ctx.response.body += 'b';
         }
       });
 
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'c';
+          ctx.response.body += 'c';
         }
 
         after(ctx) {
-          ctx.body += 'd';
+          ctx.response.body += 'd';
           return this.end();
         }
       });
 
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'e';
+          ctx.response.body += 'e';
 
         }
         after(ctx) {
-          ctx.body += 'f';
+          ctx.response.body += 'f';
         }
       });
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'g';
+          ctx.response.body += 'g';
           return this.end();
         }
 
         after(ctx) {
-          ctx.body += 'h';
+          ctx.response.body += 'h';
         }
       });
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'i';
+          ctx.response.body += 'i';
         }
 
         after(ctx) {
-          ctx.body += 'j';
+          ctx.response.body += 'j';
         }
       });
-      cub.listen(8000, () => { });
+      const port = detectPort();
+      cub.listen(port, () => { });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'aceghfd');//acegfd
       cub.server.stop();
     });
@@ -163,36 +169,37 @@ describe("Cub", () => {
       const cub = new Cub();
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body = 'a';
+          ctx.response.body = 'a';
         }
 
         after(ctx) {
-          ctx.body += 'b';
+          ctx.response.body += 'b';
         }
       });
 
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'c';
+          ctx.response.body += 'c';
         }
 
         after(ctx) {
-          ctx.body += 'd';
+          ctx.response.body += 'd';
         }
       });
 
       cub.register(new class extends BaseInterceptor {
         before(ctx) {
-          ctx.body += 'e';
+          ctx.response.body += 'e';
         }
 
         after(ctx) {
-          ctx.body += 'f';
+          ctx.response.body += 'f';
         }
       });
-      cub.listen(8000, () => { });
+      const port = detectPort();
+      cub.listen(port, () => { });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'acefdb');
       cub.server.stop();
     });
@@ -202,21 +209,21 @@ describe("Cub", () => {
     it('should stop ok', () => {
       const cub = new Cub();
       cub.register(ctx => {
-        ctx.body = 'a';
+        ctx.response.body = 'a';
       });
 
       cub.register(ctx => {
-        ctx.body += 'b';
+        ctx.response.body += 'b';
         return false;
       });
 
       cub.register(ctx => {
-        ctx.body += 'b';
+        ctx.response.body += 'b';
       });
-
-      cub.listen(8000, () => { });
+      const port = detectPort();
+      cub.listen(port, () => { });
       co.sleep(20);
-      const res = http.get('http://127.0.0.1:8000').readAll().toString();
+      const res = http.get('http://127.0.0.1:' + port).readAll().toString();
       assert(res === 'ab');//acegfd
       cub.server.stop();
     });
